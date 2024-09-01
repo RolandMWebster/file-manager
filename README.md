@@ -1,6 +1,6 @@
 # File Manager
 
-**A unified interface for saving and loading files across various storage types.**
+*A unified interface for saving and loading files across various storage types.*
 
 In modern applications, the need to read from and write to different storage
 locations—such as local disk, cloud storage (e.g., AWS S3), or even mock locations for
@@ -58,3 +58,13 @@ file_manager = FileManager(location_type="local", default_directory="data")
 file_manager.save(data, "data.json")
 file_manager.load("data.json")
 ```
+
+
+## Supported Input/Output Types and Storage Locations
+
+The table below summarizes the supported input/output types and storage locations
+
+| Object Type | File Type(s) | Location Type(s) |
+|-------------|--------------|------------------|
+| ``pandas.DataFrame`` | ``.csv``, ``.parquet`` | ``Local``, ``S3``, ``None`` |
+| ``dict`` | ``.json`` | ``Local``, ``S3``, ``None`` |
