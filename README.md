@@ -18,7 +18,7 @@ testing, and production.
 ## Caution
 
 While this package provides convenience in some use cases, it does come with some
-trade-offs:
+trade-offs and limitations that should be considered before adopting it:
 
 - **Limited Access to Specific Features:** By abstracting the underlying storage APIs,
 the package may not expose all the specialized features or fine-tuned controls available
@@ -64,7 +64,7 @@ file_manager.load("data.json")
 
 ## Supported Input/Output Types and Storage Locations
 
-The table below summarizes the supported input/output types and storage locations
+The table below summarizes the supported input/output types and storage locations:
 
 | Object Type | File Type(s) | Location Type(s) |
 |-------------|--------------|------------------|
