@@ -10,6 +10,37 @@ if TYPE_CHECKING:
 
 
 class FileManager:
+    """
+    File Manager class to save and load files.
+
+    Parameters
+    ----------
+    default_directory : Union[str, pathlib.Path], optional
+        The default directory to save and load files from. If None, the directory must be
+        supplied in the method call. The default_directory can be set after
+        initialisation via the `default_directory` property.
+    location_type : str, optional
+        The type of location to save and load files from. If None, a handler must be
+        supplied via the handler parameter.
+    handler : BaseHandler, optional
+        The handler to use to save and load files. If None, a handler is created based on
+        the location_type parameter. Users should default to using the location_type
+        parameter rather than supplying a handler directly and should only supply a
+        handler if they have a specific use case (such as a custom handler or specific
+        handler configuration).
+    handler_kwargs : dict, optional
+        Keyword arguments to pass to the handler if the handler is created based on the
+        location_type parameter. If None, no keyword arguments are passed.
+
+    Examples
+    --------
+    >>> from file_manager import FileManager
+    >>> # setup a file manager for local storage
+    >>> local_manager = FileManager(location_type="local", default_directory="data/")
+    >>> # setup a file manager for S3 storage
+    >>> s3_manager = FileManager(location_type="s3", default_directory="data/")
+    """
+
     def __init__(
         self,
         default_directory: Optional[Union[str, pathlib.Path]] = None,
@@ -54,12 +85,17 @@ class FileManager:
         """
         Save a file.
 
+        The file is saved to the directory specified in the ``directory`` argument. If no
+        directory is supplied, the default directory is used. The file type is inferred
+        from the file extension in the ``filename`` argument.
+
         Parameters
         ----------
         data : Any
             The data to save.
         filename : str
-            The name of the file to save, with the extension.
+            The name of the file to save, with the extension. This is used to infer the
+            file type.
         directory : str, optional
             The directory to save the file to. If None, the default directory is used.
 
@@ -68,7 +104,7 @@ class FileManager:
         AttributeError
             If no directory is supplied and the default_directory is None.
         ValueError
-            If the file extension is not included in the `filename` argument.
+            If the file extension is not included in the ``filename`` argument.
 
         Examples
         --------
