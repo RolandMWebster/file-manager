@@ -13,9 +13,13 @@ class NoneHandler(BaseHandler):
     as a placeholder when no file handler is needed. This class is useful for
     testing purposes. For load operations, this class will return an empty object
     of the appropriate type. For save operations, this class will do nothing.
-    """
 
-    pass
+    Examples
+    --------
+    >>> from file_manager.file_handlers import NoneHandler
+    >>> # setup a None handler
+    >>> none_handler = NoneHandler()
+    """
 
     def save_csv(self, data: pd.DataFrame, path: pathlib.Path):
         pass

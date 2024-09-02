@@ -10,6 +10,15 @@ logger = logging.getLogger(__name__)
 
 
 class LocalHandler(BaseHandler):
+    """
+    A file handler for reading and writing files to the local filesystem.
+
+    Examples
+    --------
+    >>> from file_manager.file_handlers import LocalHandler
+    >>> # setup a local handler
+    >>> local_handler = LocalHandler()
+    """
 
     def __init__(self):
         pass

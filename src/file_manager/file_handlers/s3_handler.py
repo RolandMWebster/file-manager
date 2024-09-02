@@ -1,6 +1,7 @@
 import json
 import pathlib
 from io import BytesIO, StringIO
+from typing import Optional
 
 import boto3
 import pandas as pd
@@ -9,9 +10,44 @@ from file_manager.file_handlers.base_handler import BaseHandler
 
 
 class S3Handler(BaseHandler):
+    """
+    A file handler for reading and writing files to an S3 bucket.
 
-    def __init__(self, bucket: str, path_prefix: str = ""):
-        self.client = boto3.client("s3")
+    Parameters
+    ----------
+    bucket : str
+        The name of the S3 bucket to read and write files from.
+    path_prefix : str, optional
+        A prefix to add to the start of all file paths. This can be used to store files
+        in a subdirectory within the bucket. Typically, this would be a directory name
+        that matches the project name.
+    client_kwargs : dict, optional
+        Additional keyword arguments to pass to the boto3 client when connecting to S3.
+
+    Examples
+    --------
+    >>> from file_manager.file_handlers import S3Handler
+    >>> # setup an S3 handler
+    >>> s3_handler = S3Handler(bucket="my-bucket", path_prefix="my_project/")
+    >>> # supply custom aws credentials
+    >>> s3_handler = S3Handler(
+    ...     bucket="my-bucket",
+    ...     path_prefix="my_project/",
+    ...     client_kwargs={
+    ...         "aws_access_key_id": "my_access_key_id",
+    ...         "aws_secret_access_key": "my_secret_access_key",
+    ...     }
+    ... )
+    """
+
+    def __init__(
+        self, bucket: str, path_prefix: str = "", client_kwargs: Optional[dict] = None
+    ):
+        if client_kwargs is None:
+            client_kwargs = {}
+        client_kwargs["service_name"] = "s3"  # force service name to be 's3'
+        self.client_kwargs = client_kwargs
+        self.client = boto3.client(**client_kwargs)
         self.bucket = bucket
         self.path_prefix = path_prefix
         self._check_read_access()
