@@ -26,7 +26,7 @@ def example_dict():
 def cleanup_files():
     yield
     for file in os.listdir("tests/data/"):
-        if file == ".gitkeep":
+        if file == ".gitignore":
             continue
         os.remove(f"tests/data/{file}")
 
