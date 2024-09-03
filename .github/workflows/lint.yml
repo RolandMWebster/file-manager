@@ -1,9 +1,9 @@
-name: Nox
+name: Lint
 
 on: [ push, pull_request ]
 
 jobs:
-  tests:
+  lint:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,6 +22,3 @@ jobs:
       
       - name: Run linting
         run: nox -s lint
-
-      - name: Run tests
-        run: nox -s test
