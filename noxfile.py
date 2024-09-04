@@ -8,7 +8,7 @@ PYTHON_VERSIONS = ["3.9"]
 
 @nox.session(python=PYTHON_VERSIONS)
 def lint(session):
-    session.install(".[lint]")
+    session.install("ruff==0.6.3")
     session.run("ruff", "check")
 
 
