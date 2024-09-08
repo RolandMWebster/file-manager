@@ -12,6 +12,8 @@ dependencies = [
     "pathlib==1.0.1",
     "boto3==1.35.10",
     "google-cloud-storage==2.18.2",
+    "azure-storage-blobl==12.22.0",
+    "azure-identity==1.17.1",
 ]
 
 [project.optional-dependencies]
