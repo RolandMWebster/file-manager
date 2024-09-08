@@ -11,6 +11,7 @@ dependencies = [
     "pyarrow==17.0.0",
     "pathlib==1.0.1",
     "boto3==1.35.10",
+    "google-cloud-storage==2.18.2",
 ]
 
 [project.optional-dependencies]
