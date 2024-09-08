@@ -1,6 +1,6 @@
 import json
 import pathlib
-from io import BytesIO, StringIO
+from io import BytesIO
 from typing import Optional
 
 import pandas as pd
