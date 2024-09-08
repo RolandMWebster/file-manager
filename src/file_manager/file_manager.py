@@ -30,7 +30,9 @@ class FileManager:
         handler configuration).
     handler_kwargs : dict, optional
         Keyword arguments to pass to the handler if the handler is created based on the
-        location_type parameter. If None, no keyword arguments are passed.
+        location_type parameter. If None, no keyword arguments are passed. A common use
+        case for this parameter would be to supply handler-specific authentication
+        credentials, if required.
 
     Examples
     --------
