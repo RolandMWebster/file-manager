@@ -13,6 +13,17 @@ class S3Handler(BaseHandler):
     """
     A file handler for reading and writing files to an S3 bucket.
 
+    Implementation Details
+    ----------------------
+    The handler uses the `boto3` library to interact with S3. More specifically, it uses
+    the `boto3.client` method to create a client object that can be used to interact with
+    the S3 bucket. Users can supply custom arguments to the `boto3.client` instantiation
+    by providing them as a dictionary in the `client_kwargs` argument of the handler.
+    This is useful for supplying custom AWS credentials or other configuration options.
+    For more information on authentication to AWS services via the `boto3.client` method,
+    visit the boto3 documentation here:
+    https://boto3.amazonaws.com/v1/documentation/api/latest/guide/credentials.html
+
     Parameters
     ----------
     bucket : str
@@ -27,10 +38,10 @@ class S3Handler(BaseHandler):
     Examples
     --------
     >>> from file_manager.file_handlers import S3Handler
-    >>> # setup an S3 handler
+    >>> # Setup an S3 handler using default AWS credentials stored in ~/.aws/credentials
     >>> s3_handler = S3Handler(bucket="my-bucket", path_prefix="my_project/")
-    >>> # supply custom aws credentials
-    >>> s3_handler = S3Handler(
+    >>> # Setup an S3 handler using custom AWS credentials
+    >>> s3_handler_custom_creds = S3Handler(
     ...     bucket="my-bucket",
     ...     path_prefix="my_project/",
     ...     client_kwargs={
