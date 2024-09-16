@@ -1,25 +1,8 @@
 import os
 
-import pandas as pd
 import pytest
 
 from file_manager import FileManager
-
-
-def test_bad_assignments():
-    # no handler or location type supplied
-    with pytest.raises(AttributeError):
-        FileManager()
-
-
-@pytest.fixture
-def example_df():
-    return pd.DataFrame({"col1": [1, 2, 3]})
-
-
-@pytest.fixture()
-def example_dict():
-    return {"a": [1, 2, 3], "b": [4, 5, 6]}
 
 
 @pytest.fixture(autouse=True)
@@ -31,22 +14,36 @@ def cleanup_files():
         os.remove(f"tests/data/{file}")
 
 
-def test_save_load_dataframe(example_df):
-    manager = FileManager(default_directory="tests/data/", location_type="local")
-    manager.save(example_df, "_test.csv")
-    loaded = manager.load("_test.csv")
+@pytest.fixture
+def file_manager():
+    return FileManager(default_directory="tests/data/", location_type="local")
+
+
+def test_bad_assignments():
+    # no handler or location type supplied
+    with pytest.raises(AttributeError):
+        FileManager()
+
+
+def test_save_load_dataframe(example_df, file_manager):
+    file_manager.save(example_df, "_test.csv")
+    loaded = file_manager.load("_test.csv")
     assert example_df.equals(loaded)
 
 
-def test_save_load_json(example_dict):
-    manager = FileManager(default_directory="tests/data/", location_type="local")
-    manager.save(example_dict, "_test.json")
-    loaded = manager.load("_test.json")
+def test_save_load_json(example_dict, file_manager):
+    file_manager.save(example_dict, "_test.json")
+    loaded = file_manager.load("_test.json")
     assert example_dict == loaded
 
 
-def test_save_load_parquet(example_df):
-    manager = FileManager(default_directory="tests/data/", location_type="local")
-    manager.save(example_df, "_test.parquet")
-    loaded = manager.load("_test.parquet")
+def test_save_load_parquet(example_df, file_manager):
+    file_manager.save(example_df, "_test.parquet")
+    loaded = file_manager.load("_test.parquet")
     assert example_df.equals(loaded)
+
+
+def test_save_load_pkl(example_class, file_manager):
+    file_manager.save(example_class, "_test.pkl")
+    loaded = file_manager.load("_test.pkl")
+    assert example_class == loaded
