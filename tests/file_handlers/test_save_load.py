@@ -47,58 +47,33 @@ handlers = {
 }
 
 
-@dataclass
-class ExampleClass:
-    a: int
-    b: str
-
-
-FILEPATH = "tests/data/test"
-
-
-# define some objects to read/write
-@pytest.fixture
-def example_df():
-    return pd.DataFrame({"a": [1, 2], "b": ["example1", "example2"]})
-
-
-@pytest.fixture
-def example_dict():
-    return {"key": "value"}
-
-
-@pytest.fixture
-def example_class():
-    return ExampleClass(a=1, b="example")
-
-
 @pytest.mark.parametrize("handler_name", handlers.keys())
-def test_read_write_csv(handler_name, example_df):
+def test_read_write_csv(handler_name, example_df, file_path):
     handler = handlers[handler_name]
-    handler.save_csv(example_df, f"{FILEPATH}.csv")
-    loaded_df = handler.load_csv(f"{FILEPATH}.csv")
+    handler.save_csv(example_df, f"{file_path}.csv")
+    loaded_df = handler.load_csv(f"{file_path}.csv")
     pd.testing.assert_frame_equal(example_df, loaded_df)
 
 
 @pytest.mark.parametrize("handler_name", handlers.keys())
-def test_read_write_parquet(handler_name, example_df):
+def test_read_write_parquet(handler_name, example_df, file_path):
     handler = handlers[handler_name]
-    handler.save_parquet(example_df, f"{FILEPATH}.parquet")
-    loaded_df = handler.load_parquet(f"{FILEPATH}.parquet")
+    handler.save_parquet(example_df, f"{file_path}.parquet")
+    loaded_df = handler.load_parquet(f"{file_path}.parquet")
     pd.testing.assert_frame_equal(example_df, loaded_df)
 
 
 @pytest.mark.parametrize("handler_name", handlers.keys())
-def test_read_write_json(handler_name, example_dict):
+def test_read_write_json(handler_name, example_dict, file_path):
     handler = handlers[handler_name]
-    handler.save_json(example_dict, f"{FILEPATH}.json")
-    loaded_dict = handler.load_json(f"{FILEPATH}.json")
+    handler.save_json(example_dict, f"{file_path}.json")
+    loaded_dict = handler.load_json(f"{file_path}.json")
     assert example_dict == loaded_dict
 
 
 @pytest.mark.parametrize("handler_name", handlers.keys())
-def test_read_write_pkl(handler_name, example_class):
+def test_read_write_pkl(handler_name, example_class, file_path):
     handler = handlers[handler_name]
-    handler.save_pickle(example_class, f"{FILEPATH}.pkl")
-    loaded_class = handler.load_pickle(f"{FILEPATH}.pkl")
+    handler.save_pickle(example_class, f"{file_path}.pkl")
+    loaded_class = handler.load_pickle(f"{file_path}.pkl")
     assert example_class == loaded_class
