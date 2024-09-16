@@ -23,8 +23,7 @@ trade-offs and limitations that should be considered before adopting it:
 - **Limited Access to Specific Features:** By abstracting the underlying storage APIs,
 the package may not expose all the specialized features or fine-tuned controls available
 in specific storage types. If your application requires advanced, storage-specific
-functionalities (e.g., S3-specific access control settings, versioning, or multipart
-uploads), this package might not meet those needs without additional customization.
+functionalities, this package might not meet those needs without additional customization.
 
 - **Potential Performance Overhead:** The abstraction layer introduces a small
 performance overhead due to the generalized handling of different storage types. For
@@ -46,7 +45,7 @@ storage API could be simpler and more straightforward.
 ```python
 from file_manager import FileManager
 
-# some data to be saved and loaded as part of our project
+# some data to be saved and loaded as part of your project
 data = {
     "name": "John Doe",
     "age": 30,
@@ -56,7 +55,7 @@ data = {
 # create a file manager instance
 file_manager = FileManager(location_type="local", default_directory="data")
 
-# use file manager to easily save and load file
+# use file manager to easily save and load files
 file_manager.save(data, "data.json")
 file_manager.load("data.json")
 ```
@@ -68,5 +67,6 @@ The table below summarizes the supported input/output types and storage location
 
 | Object Type | File Type(s) | Location Type(s) |
 |-------------|--------------|------------------|
-| ``pandas.DataFrame`` | ``.csv``, ``.parquet`` | ``Local``, ``S3``, ``Google``, ``None`` |
-| ``dict`` | ``.json`` | ``Local``, ``S3``, ``Google``, ``None`` |
+| ``pandas.DataFrame`` | ``.csv``, ``.parquet`` | ``Local``, ``Azure``, ``S3``, ``Google``, ``None`` |
+| ``dict`` | ``.json`` | ``Local``, ``Azure``, ``S3``, ``Google``, ``None`` |
+| ``Any`` | ``.pkl`` | ``Local``, ``Azure``, ``S3``, ``Google``, ``None`` |

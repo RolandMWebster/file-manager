@@ -18,8 +18,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install nox
       
-      - name: Run tests
-        run: nox -s test
+      - name: Run linting
+        run: nox -s lint
 
   tests:
     runs-on: ubuntu-latest
@@ -38,5 +38,5 @@ jobs:
           python -m pip install --upgrade pip
           pip install nox
       
-      - name: Run linting
-        run: nox -s lint
+      - name: Run tests
+        run: nox -s test_no_remote

@@ -1,7 +1,8 @@
 import json
 import pathlib
+import pickle
 from io import BytesIO, StringIO
-from typing import Optional
+from typing import Any, Optional
 
 import boto3
 import pandas as pd
@@ -109,3 +110,14 @@ class S3Handler(BaseHandler):
     def load_json(self, path: pathlib.Path) -> dict:
         response = self.client.get_object(Bucket=self.bucket, Key=self._make_path(path))
         return json.loads(response["Body"].read().decode("utf-8"))
+
+    def save_pickle(self, data: Any, path: pathlib.Path):
+        buffer = BytesIO()
+        pickle.dump(data, buffer)
+        self.client.put_object(
+            Bucket=self.bucket, Key=self._make_path(path), Body=buffer.getvalue()
+        )
+
+    def load_pickle(self, path: pathlib.Path) -> Any:
+        response = self.client.get_object(Bucket=self.bucket, Key=self._make_path(path))
+        return pickle.load(BytesIO(response["Body"].read()))

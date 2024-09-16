@@ -1,7 +1,8 @@
 import json
 import pathlib
+import pickle
 from io import BytesIO
-from typing import Optional
+from typing import Any, Optional
 
 import pandas as pd
 from google.cloud import storage
@@ -62,6 +63,11 @@ class GoogleHandler(BaseHandler):
         self.bucket = self.client.bucket(bucket)
         self.path_prefix = path_prefix
 
+    def _make_path(self, path: pathlib.Path) -> str:
+        # return string with prefix in front
+        path_with_prefix = pathlib.Path(self.path_prefix) / path
+        return str(path_with_prefix)
+
     def save_csv(self, data: pd.DataFrame, path: pathlib.Path):
         self.bucket.blob(self._make_path(path)).upload_from_string(
             data.to_csv(index=False),
@@ -70,7 +76,7 @@ class GoogleHandler(BaseHandler):
 
     def load_csv(self, path: pathlib.Path) -> pd.DataFrame:
         blob = self.bucket.blob(self._make_path(path))
-        return pd.read_csv(BytesIO(blob.download_as_string()))
+        return pd.read_csv(BytesIO(blob.download_as_bytes()))
 
     def save_json(self, data: dict, path: pathlib.Path):
         self.bucket.blob(self._make_path(path)).upload_from_string(
@@ -80,7 +86,7 @@ class GoogleHandler(BaseHandler):
 
     def load_json(self, path: pathlib.Path) -> dict:
         blob = self.bucket.blob(self._make_path(path))
-        return json.loads(blob.download_as_string())
+        return json.loads(blob.download_as_bytes())
 
     def save_parquet(self, data: pd.DataFrame, path: pathlib.Path):
         buffer = BytesIO()
@@ -93,4 +99,17 @@ class GoogleHandler(BaseHandler):
 
     def load_parquet(self, path: pathlib.Path) -> pd.DataFrame:
         blob = self.bucket.blob(self._make_path(path))
-        return pd.read_parquet(BytesIO(blob.download_as_string()))
+        return pd.read_parquet(BytesIO(blob.download_as_bytes()))
+
+    def save_pickle(self, data: Any, path: pathlib.Path):
+        buffer = BytesIO()
+        pickle.dump(data, buffer)
+        buffer.seek(0)
+        self.bucket.blob(self._make_path(path)).upload_from_file(
+            buffer,
+            "application/octet-stream",
+        )
+
+    def load_pickle(self, path: pathlib.Path) -> Any:
+        blob = self.bucket.blob(self._make_path(path))
+        return pickle.load(BytesIO(blob.download_as_bytes()))
