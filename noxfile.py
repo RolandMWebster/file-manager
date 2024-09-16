@@ -16,3 +16,9 @@ def lint(session):
 def test(session):
     session.install(".[test]")
     session.run("pytest", "--cov=file_manager", "tests/")
+
+
+@nox.session(python=PYTHON_VERSIONS)
+def test_no_remote(session):
+    session.install(".[test]")
+    session.run("pytest", "--cov=file_manager", "tests/", "-m", "not remote")
