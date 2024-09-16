@@ -1,4 +1,5 @@
 import pathlib
+from typing import Any
 
 import pandas as pd
 
@@ -38,3 +39,9 @@ class NoneHandler(BaseHandler):
 
     def load_json(self, path: pathlib.Path):
         return {}
+
+    def save_pickle(self, data: Any, path: pathlib.Path):
+        pass
+
+    def load_pickle(self, path: pathlib.Path):
+        return None
