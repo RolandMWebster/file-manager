@@ -145,3 +145,29 @@ class BaseHandler(ABC):
             The path to the JSON file.
         """
         raise NotImplementedError
+
+    @abstractmethod
+    def save_pickle(self, data: Any, path: pathlib.Path):
+        """
+        Saves data to a pickle file.
+
+        Parameters
+        ----------
+        data : Any
+            The data to be saved.
+        path : pathlib.Path
+            The path to save the data to.
+        """
+        raise NotImplementedError
+
+    @abstractmethod
+    def load_pickle(self, path: pathlib.Path) -> Any:
+        """
+        Loads a pickle file into a Python object.
+
+        Parameters
+        ----------
+        path : pathlib.Path
+            The path to the pickle file.
+        """
+        raise NotImplementedError
