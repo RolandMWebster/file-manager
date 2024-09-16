@@ -69,3 +69,4 @@ The table below summarizes the supported input/output types and storage location
 |-------------|--------------|------------------|
 | ``pandas.DataFrame`` | ``.csv``, ``.parquet`` | ``Local``, ``Azure``, ``S3``, ``Google``, ``None`` |
 | ``dict`` | ``.json`` | ``Local``, ``Azure``, ``S3``, ``Google``, ``None`` |
+| ``Any`` | ``.pkl`` | ``Local``, ``Azure``, ``S3``, ``Google``, ``None`` |
