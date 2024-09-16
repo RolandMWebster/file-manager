@@ -32,6 +32,7 @@ class BaseHandler(ABC):
 
         if path.suffix == ".pkl":
             self.save_pickle(data, path)
+            return
 
         if isinstance(data, pd.DataFrame):
             # check if extension is csv
