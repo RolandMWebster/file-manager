@@ -1,7 +1,8 @@
 import io
 import json
 import pathlib
-from typing import Optional
+import pickle
+from typing import Any, Optional
 
 import pandas as pd
 from azure.identity import DefaultAzureCredential
@@ -61,6 +62,11 @@ class AzureHandler(BaseHandler):
         self.container = container
         self.path_prefix = path_prefix
 
+    def _make_path(self, path: pathlib.Path) -> str:
+        # return string with prefix in front
+        path_with_prefix = pathlib.Path(self.path_prefix) / path
+        return str(path_with_prefix)
+
     def save_csv(self, data: pd.DataFrame, path: pathlib.Path):
         blob_client = self.client.get_blob_client(
             container=self.container, blob=self._make_path(path)
@@ -95,3 +101,15 @@ class AzureHandler(BaseHandler):
             container=self.container, blob=self._make_path(path)
         )
         return pd.read_parquet(io.BytesIO(blob_client.download_blob().readall()))
+
+    def save_pickle(self, data: Any, path: pathlib.Path):
+        blob_client = self.client.get_blob_client(
+            container=self.container, blob=self._make_path(path)
+        )
+        blob_client.upload_blob(pickle.dumps(data), overwrite=True)
+
+    def load_pickle(self, path: pathlib.Path) -> Any:
+        blob_client = self.client.get_blob_client(
+            container=self.container, blob=self._make_path(path)
+        )
+        return pickle.loads(blob_client.download_blob().readall())

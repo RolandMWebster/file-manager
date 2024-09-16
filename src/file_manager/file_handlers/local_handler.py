@@ -1,6 +1,8 @@
 import json
 import logging
 import pathlib
+import pickle
+from typing import Any
 
 import pandas as pd
 
@@ -48,3 +50,11 @@ class LocalHandler(BaseHandler):
     def load_json(self, path: pathlib.Path) -> dict:
         with open(path, "r") as f:
             return json.load(f)
+
+    def save_pickle(self, data: Any, path: pathlib.Path):
+        with open(path, "wb") as f:
+            pickle.dump(data, f)
+
+    def load_pickle(self, path: pathlib.Path) -> Any:
+        with open(path, "rb") as f:
+            return pickle.load(f)

@@ -27,6 +27,9 @@ class BaseHandler(ABC):
         path : pathlib.Path
             The path to save the data to.
         """
+        if path.suffix == ".pkl":
+            self.save_pickle(data, path)
+
         if isinstance(data, pd.DataFrame):
             # check if extension is csv
             if path.suffix == ".csv":
@@ -63,6 +66,8 @@ class BaseHandler(ABC):
             return self.load_parquet(path)
         elif path.suffix == ".json":
             return self.load_json(path)
+        elif path.suffix == ".pkl":
+            return self.load_pickle(path)
         else:
             raise NotImplementedError
 
@@ -143,5 +148,31 @@ class BaseHandler(ABC):
         ----------
         path : pathlib.Path
             The path to the JSON file.
+        """
+        raise NotImplementedError
+
+    @abstractmethod
+    def save_pickle(self, data: Any, path: pathlib.Path):
+        """
+        Saves data to a pickle file.
+
+        Parameters
+        ----------
+        data : Any
+            The data to be saved.
+        path : pathlib.Path
+            The path to save the data to.
+        """
+        raise NotImplementedError
+
+    @abstractmethod
+    def load_pickle(self, path: pathlib.Path) -> Any:
+        """
+        Loads a pickle file into a Python object.
+
+        Parameters
+        ----------
+        path : pathlib.Path
+            The path to the pickle file.
         """
         raise NotImplementedError
