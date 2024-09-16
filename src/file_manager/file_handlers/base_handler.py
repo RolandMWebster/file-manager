@@ -27,6 +27,9 @@ class BaseHandler(ABC):
         path : pathlib.Path
             The path to save the data to.
         """
+        if isinstance(path, str):
+            path = pathlib.Path(path)
+
         if path.suffix == ".pkl":
             self.save_pickle(data, path)
 
@@ -60,6 +63,9 @@ class BaseHandler(ABC):
         Any
             The loaded data.
         """
+        if isinstance(path, str):
+            path = pathlib.Path(path)
+
         if path.suffix == ".csv":
             return self.load_csv(path)
         elif path.suffix == ".parquet":
