@@ -87,7 +87,9 @@ class AzureHandler(BaseHandler):
         blob_client.upload_blob(json.dumps(data), overwrite=True)
 
     def load_json(self, path: pathlib.Path) -> dict:
-        blob_client = self.client.get_blob_client(blob=self._make_path(path))
+        blob_client = self.client.get_blob_client(
+            container=self.container, blob=self._make_path(path)
+        )
         return json.loads(blob_client.download_blob().readall())
 
     def save_parquet(self, data: pd.DataFrame, path: pathlib.Path):

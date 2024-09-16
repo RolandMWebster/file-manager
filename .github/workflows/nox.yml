@@ -39,4 +39,4 @@ jobs:
           pip install nox
       
       - name: Run tests
-        run: nox -s test
+        run: nox -s test_no_remote

@@ -23,6 +23,7 @@ lint = [
 test = [
     "pytest==8.3.2",
     "pytest-cov==5.0.0",
+    "python-dotenv==1.0.1",
 ]
 misc = [
     "ipykernel==6.29.5",

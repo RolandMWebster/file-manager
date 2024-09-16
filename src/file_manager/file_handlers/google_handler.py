@@ -76,7 +76,7 @@ class GoogleHandler(BaseHandler):
 
     def load_csv(self, path: pathlib.Path) -> pd.DataFrame:
         blob = self.bucket.blob(self._make_path(path))
-        return pd.read_csv(BytesIO(blob.download_as_string()))
+        return pd.read_csv(BytesIO(blob.download_as_bytes()))
 
     def save_json(self, data: dict, path: pathlib.Path):
         self.bucket.blob(self._make_path(path)).upload_from_string(
@@ -86,7 +86,7 @@ class GoogleHandler(BaseHandler):
 
     def load_json(self, path: pathlib.Path) -> dict:
         blob = self.bucket.blob(self._make_path(path))
-        return json.loads(blob.download_as_string())
+        return json.loads(blob.download_as_bytes())
 
     def save_parquet(self, data: pd.DataFrame, path: pathlib.Path):
         buffer = BytesIO()
@@ -99,7 +99,7 @@ class GoogleHandler(BaseHandler):
 
     def load_parquet(self, path: pathlib.Path) -> pd.DataFrame:
         blob = self.bucket.blob(self._make_path(path))
-        return pd.read_parquet(BytesIO(blob.download_as_string()))
+        return pd.read_parquet(BytesIO(blob.download_as_bytes()))
 
     def save_pickle(self, data: Any, path: pathlib.Path):
         buffer = BytesIO()
@@ -112,4 +112,4 @@ class GoogleHandler(BaseHandler):
 
     def load_pickle(self, path: pathlib.Path) -> Any:
         blob = self.bucket.blob(self._make_path(path))
-        return pickle.load(BytesIO(blob.download_as_string()))
+        return pickle.load(BytesIO(blob.download_as_bytes()))
