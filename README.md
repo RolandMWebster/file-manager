@@ -2,6 +2,7 @@
 
 *A unified interface for saving and loading files across various storage types.*
 
+
 ## Overview
 
 In modern applications, the need to read from and write to different storage
@@ -14,6 +15,7 @@ interacting with different storage types. By simplifying this process, it allows
 developers to easily swap storage backends without modifying their codebase, making it
 ideal for environments that require flexible storage management, such as development,
 testing, and production.
+
 
 ## Caution
 
@@ -40,26 +42,35 @@ interaction with a single storage type (e.g., local filesystem only), using this
 might introduce unnecessary complexity. In such cases, directly using the relevant
 storage API could be simpler and more straightforward.
 
+## Installation
+
+The ``file_manager`` package can be installed from GitHub via pip:
+
+```bash
+pip install git+https://github.com/RolandMWebster/file-manager.git
+```
+
 ## Example Usage
 
 ```python
-from file_manager import FileManager
+from file_manager import FileManger
 
 # some data to be saved and loaded as part of your project
 data = {
     "name": "John Doe",
     "age": 30,
-    "email": "johndoe@email.com"
+    "email": "johndoe@email.com",
 }
 
-# create a file manager instance
+# create a file manager instance to store files locally in the "data" directory
 file_manager = FileManager(location_type="local", default_directory="data")
 
 # use file manager to easily save and load files
-file_manager.save(data, "data.json")
-file_manager.load("data.json")
+file_manager.save(data, "data.json")  # file type inferred from the file extension
+loaded_data = file_manager.load("data.json")
 ```
 
+For more detailed usage, refer to the [quickstart guide](docs/quickstart.md).
 
 ## Supported Input/Output Types and Storage Locations
 
