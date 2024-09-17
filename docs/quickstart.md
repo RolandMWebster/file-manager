@@ -1,8 +1,14 @@
 # Quickstart
 
+This document provides a quick start guide for using the `file_manager` package.
+
 ## Installation
 
+``file_manager`` can be installed from GitHub via pip:
 
+```bash
+pip install git+https://github.com/RolandMWebster/file-manager.git
+```
 
 ## Basic Usage
 
@@ -22,16 +28,15 @@ data = {
 # Local Storage
 # -------------
 # create a file manager instance to store files locally in the "data" directory
-local_file_manager = FileManager(location_type="local", default_directory="data")
+file_manager = FileManager(location_type="local", default_directory="data")
 
 # use file manager to easily save and load files
-local_file_manager.save(data, "data.json")
-loaded_data = local_file_manager.load("data.json")
+file_manager.save(data, "data.json")  # file type inferred from the file extension
+loaded_data = file_manager.load("data.json")
 
 
 # Shared Cloud Storage (S3 in this case)
 # --------------------------------------
-# create a file manager instance to store files in S3
 s3_file_manager = FileManager(
     location_type="s3", handler_kwargs={"bucket_name": "my_bucket"}
 )
@@ -40,21 +45,17 @@ s3_file_manager.save(data, "data.json")
 loaded_data = s3_file_manager.load("data.json")
 ```
 
-The file type is inferred from the file extension, so you can save and load various formats by simply changing the file name.
-
 ## Default Directory
 
 When creating a ``FileManager`` instance, you can specify a default directory for storage. This directory will be used as the base path for all file operations. This avoids the need to specify the full path every time you save or load a file and can be useful if storing all your files in a flat storage structure. However, this parameter is
 optional and users can instead opt to provide the full path via the ``directory`` parameter directly in the ``save()`` and ``load()`` methods. This approach allows for more flexibility in file organization, and may be more useful in cases where files are organized in subdirectories. The ``default_directory`` parameter can always be overridden on a per-operation basis via the ``directory`` parameter (Note the ``directory`` parameter will **override** the default directory, not append to it).
 
 ```python
-file_manager = FileManager(location_type="local", default_directory="data")
-
 # save to the default directory
 file_manager.save(data, "data.json")  # saves to data/data.json
 
 # save to a specific subdirectory
-file_manager.save(data, "data/subdir/data.json")  # saves to data/subdir/data.json
+file_manager.save(data, "data.json", directory="data/subdir")  # saves to data/subdir/data.json
 ```
 
 ## Typical Workflow
@@ -67,12 +68,12 @@ you or your team has chosen as part of your infrastructure) in conjunction with 
 
 One of the more powerful ways to make use of the ``file_manager`` package is to use
 configuration driven file handling, which makes it easy to manage storage location
-details for different environments (e.g. local, development, production) and to
+details for different environments (e.g. development, production) and to
 switch between them with minimal effort. It might look something like the below, where we
 start by defining a configuration file in YAML format:
 
 ```yaml
-# config.yaml
+#! config.yaml
 dev:
     location_type: "local" 
     file_type: "csv"  # for easy viewing in spreadsheet software or IDE
@@ -89,7 +90,6 @@ We opt for local ``.csv`` files in the development environment for ease of use, 
 use an environment variable to determine which configuration to load.  Our python code to utilize this configuration might look something like this:
 
 ```python
-from file_manager import FileManager
 import yaml
 import os
 
