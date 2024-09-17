@@ -19,20 +19,23 @@ data = {
     "email": "johndoe@email.com",
 }
 
-# create a file manager instance to store files localy in the "data" directory
+# Local Storage
+# -------------
+# create a file manager instance to store files locally in the "data" directory
 local_file_manager = FileManager(location_type="local", default_directory="data")
 
-# use file manager to easily save and load files from local disk
+# use file manager to easily save and load files
 local_file_manager.save(data, "data.json")
 loaded_data = local_file_manager.load("data.json")
 
 
-# create a file manager instance to store files in S3 instead of local disk
+# Shared Cloud Storage (S3 in this case)
+# --------------------------------------
+# create a file manager instance to store files in S3
 s3_file_manager = FileManager(
     location_type="s3", handler_kwargs={"bucket_name": "my_bucket"}
 )
-
-# use the file manager to save and load files from 
+# use the same interface to save and load files from S3 instead of local disk
 s3_file_manager.save(data, "data.json")
 loaded_data = s3_file_manager.load("data.json")
 ```
