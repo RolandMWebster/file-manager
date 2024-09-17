@@ -27,8 +27,6 @@ data = {
     "email": "johndoe@email.com",
 }
 
-# Local Storage
-# -------------
 # create a file manager instance to store files locally in the "data" directory
 file_manager = FileManager(location_type="local", default_directory="data")
 
