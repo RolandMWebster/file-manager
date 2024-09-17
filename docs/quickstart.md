@@ -4,7 +4,7 @@ This document provides a quick start guide for using the `file_manager` package.
 
 ## Installation
 
-``file_manager`` can be installed from GitHub via pip:
+The ``file_manager`` package can be installed from GitHub via pip:
 
 ```bash
 pip install git+https://github.com/RolandMWebster/file-manager.git
@@ -12,8 +12,10 @@ pip install git+https://github.com/RolandMWebster/file-manager.git
 
 ## Basic Usage
 
-The most basic usage enables saving and loading files with a simple ``save()`` and
-``load()`` interface, regardless of the underlying storage type:
+The ``FileManager`` class is used to enable saving and loading files with a simple
+``save()`` and ``load()`` interface. The location type is specified on instantiation of
+the ``FileManager`` class and the file type is inferred from the file extension within
+the ``save`` and ``load`` methods.
 
 ```python
 from file_manager import FileManger
@@ -33,10 +35,15 @@ file_manager = FileManager(location_type="local", default_directory="data")
 # use file manager to easily save and load files
 file_manager.save(data, "data.json")  # file type inferred from the file extension
 loaded_data = file_manager.load("data.json")
+```
 
+## Location-Specific Arguments
 
-# Shared Cloud Storage (S3 in this case)
-# --------------------------------------
+Most location types have handler specific arguments that can be passed in via the
+`handler_kwargs` argument when instantiating the `FileManager`. For example, when using
+S3 you'll need to specify the bucket name:
+
+```python
 s3_file_manager = FileManager(
     location_type="s3", handler_kwargs={"bucket_name": "my_bucket"}
 )
