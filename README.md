@@ -45,10 +45,24 @@ storage API could be simpler and more straightforward.
 ## Installation
 
 The ``file_manager`` package can be installed from GitHub via pip:
-
 ```bash
-pip install git+https://github.com/RolandMWebster/file-manager.git
+pip install "file_manager[full] @ git+https://github.com/RolandMWebster/file-manager.git"
 ```
+
+Note: The `[full]` option installs all dependencies for all supported cloud object
+storage locations. Alternatively, you can install only the dependencies for your storage
+location of choice, e.g.:
+```bash
+# install dependencies for Amazon S3 only
+pip install "file_manager[s3] @ git+https://github.com/RolandMWebster/file-manager.git"
+```
+
+If you are only using the local storage functionality of ``file_manager``, then you can
+ignore any cloud object storage dependencies:
+```bash
+pip install git+https://github.com/RolandMWebster/file-manager.git"
+```
+
 
 ## Example Usage
 
