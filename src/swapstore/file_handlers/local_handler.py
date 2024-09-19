@@ -6,7 +6,7 @@ from typing import Any
 
 import pandas as pd
 
-from file_manager.file_handlers.base_handler import BaseHandler
+from swapstore.file_handlers.base_handler import BaseHandler
 
 logger = logging.getLogger(__name__)
 
