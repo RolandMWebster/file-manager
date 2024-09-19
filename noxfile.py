@@ -15,6 +15,7 @@ def lint(session):
 @nox.session(python=PYTHON_VERSIONS)
 def test(session):
     session.install(".[test]")
+    session.install(".[full]")
     session.run("pytest", "--cov=file_manager", "tests/")
 
 

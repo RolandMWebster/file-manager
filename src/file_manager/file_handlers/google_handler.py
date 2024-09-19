@@ -5,7 +5,6 @@ from io import BytesIO
 from typing import Any, Optional
 
 import pandas as pd
-from google.cloud import storage
 
 from file_manager.file_handlers.base_handler import BaseHandler
 
@@ -56,6 +55,13 @@ class GoogleHandler(BaseHandler):
         path_prefix: str = "",
         client_kwargs: Optional[dict] = None,
     ):
+        try:
+            from google.cloud import storage  # type: ignore
+        except ImportError:
+            raise ImportError(
+                "Google Cloud Storage dependencies are not installed. "
+                "Please install via pip install file_manager[google]."
+            )
         if client_kwargs is None:
             client_kwargs = {}
         client_kwargs["project"] = project

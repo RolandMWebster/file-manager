@@ -10,13 +10,29 @@ dependencies = [
     "pandas==2.2.2",
     "pyarrow==17.0.0",
     "pathlib==1.0.1",
+]
+
+[project.optional-dependencies]
+
+s3 = [
     "boto3==1.35.10",
+]
+
+google = [
     "google-cloud-storage==2.18.2",
+]
+
+azure = [
     "azure-storage-blob==12.22.0",
     "azure-identity==1.17.1",
 ]
 
-[project.optional-dependencies]
+full = [
+    "file_manager[s3]",
+    "file_manager[google]",
+    "file_manager[azure]",
+]
+
 lint = [
     "ruff==0.6.3",
 ]
@@ -29,7 +45,12 @@ misc = [
     "ipykernel==6.29.5",
     "nox==2024.4.15",
 ]
-dev = ["file_manager[misc]", "file_manager[test]", "file_manager[lint]"]
+dev = [
+    "file_manager[full]",
+    "file_manager[misc]",
+    "file_manager[test]",
+    "file_manager[lint]",
+]
 
 [tool.ruff.lint]
 select = ["I"]

@@ -24,6 +24,11 @@ install:
 	$(PYTHON_INTERPRETER) -m pip install -e .
 	$(PYTHON_INTERPRETER) -m pip freeze > requirements.txt --exclude-editable
 
+.PHONY: full_install
+full_install:
+	$(PYTHON_INTERPRETER) -m pip install -e .[full]
+	$(PYTHON_INTERPRETER) -m pip freeze > requirements.txt --exclude-editable
+
 .PHONY: dev_install
 dev_install:
 	$(PYTHON_INTERPRETER) -m pip install -e .[dev]
