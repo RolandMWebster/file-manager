@@ -1,7 +1,7 @@
 import pytest
 
-from file_manager.exceptions import UnknownLocationType
-from file_manager.file_handlers import LocalHandler, get_handler_type
+from swapstore.exceptions import UnknownLocationType
+from swapstore.file_handlers import LocalHandler, get_handler_type
 
 
 def test_bad_location_type():

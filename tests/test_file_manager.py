@@ -2,7 +2,7 @@ import os
 
 import pytest
 
-from file_manager import FileManager
+from swapstore import FileManager
 
 
 @pytest.fixture(autouse=True)

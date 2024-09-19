@@ -18,12 +18,7 @@ import pandas as pd
 import pytest
 from dotenv import load_dotenv
 
-from file_manager.file_handlers import (
-    AzureHandler,
-    GoogleHandler,
-    LocalHandler,
-    S3Handler,
-)
+from swapstore.file_handlers import AzureHandler, GoogleHandler, LocalHandler, S3Handler
 
 load_dotenv()
 
