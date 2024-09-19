@@ -24,7 +24,7 @@ class UnknownLocationType(Exception):
     pass
 
 
-def get_handler(location_type: str) -> Type[BaseHandler]:
+def get_handler_type(location_type: str) -> Type[BaseHandler]:
     try:
         return HANDLER_MAP[location_type]
     except KeyError:

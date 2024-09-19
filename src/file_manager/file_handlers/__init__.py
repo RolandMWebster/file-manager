@@ -1,6 +1,6 @@
 from file_manager.file_handlers.azure_handler import AzureHandler
 from file_manager.file_handlers.base_handler import BaseHandler
-from file_manager.file_handlers.get_handler import get_handler
+from file_manager.file_handlers.get_handler_type import get_handler_type
 from file_manager.file_handlers.google_handler import GoogleHandler
 from file_manager.file_handlers.local_handler import LocalHandler
 from file_manager.file_handlers.none_handler import NoneHandler
@@ -13,5 +13,5 @@ __all__ = [
     "AzureHandler",
     "S3Handler",
     "GoogleHandler",
-    "get_handler",
+    "get_handler_type",
 ]
