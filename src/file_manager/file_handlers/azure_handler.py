@@ -5,8 +5,6 @@ import pickle
 from typing import Any, Optional
 
 import pandas as pd
-from azure.identity import DefaultAzureCredential
-from azure.storage.blob import BlobServiceClient
 
 from file_manager.file_handlers.base_handler import BaseHandler
 
@@ -53,6 +51,14 @@ class AzureHandler(BaseHandler):
         path_prefix: str = "",
         client_kwargs: Optional[dict] = None,
     ):
+        try:
+            from azure.identity import DefaultAzureCredential  # type: ignore
+            from azure.storage.blob import BlobServiceClient  # type: ignore
+        except ImportError:
+            raise ImportError(
+                "Azure Blob Storage dependencies are not installed. "
+                "Please install via pip install file_manager[azure]."
+            )
         if client_kwargs is None:
             client_kwargs = {}
         client_kwargs["account_url"] = account_url

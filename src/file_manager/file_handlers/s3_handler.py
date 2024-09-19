@@ -4,7 +4,6 @@ import pickle
 from io import BytesIO, StringIO
 from typing import Any, Optional
 
-import boto3
 import pandas as pd
 
 from file_manager.file_handlers.base_handler import BaseHandler
@@ -55,6 +54,13 @@ class S3Handler(BaseHandler):
     def __init__(
         self, bucket: str, path_prefix: str = "", client_kwargs: Optional[dict] = None
     ):
+        try:
+            import boto3  # type: ignore
+        except ImportError:
+            raise ImportError(
+                "Amazon S3 dependencies are not installed. "
+                "Please install via pip install file_manager[s3]."
+            )
         if client_kwargs is None:
             client_kwargs = {}
         client_kwargs["service_name"] = "s3"  # force service name to be 's3'
