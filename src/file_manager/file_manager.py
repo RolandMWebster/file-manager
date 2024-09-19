@@ -3,7 +3,7 @@ from __future__ import annotations
 import pathlib
 from typing import TYPE_CHECKING, Any, Optional, Union
 
-from file_manager.file_handlers import get_handler
+from file_manager.file_handlers import get_handler_type
 
 if TYPE_CHECKING:
     from file_manager.file_handlers import BaseHandler
@@ -63,7 +63,7 @@ class FileManager:
         self.location_type = location_type
 
         if handler is None:
-            handler_type = get_handler(location_type=self.location_type)
+            handler_type = get_handler_type(location_type=self.location_type)
             if handler_kwargs is None:
                 handler_kwargs = {}
             self.handler = handler_type(**handler_kwargs)
