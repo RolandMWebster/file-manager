@@ -64,7 +64,7 @@ pip install git+https://github.com/RolandMWebster/swap-store.git
 ## Example Usage
 
 ```python
-from swapstore import FileManger
+from swapstore import FileManager
 
 # some data to be saved and loaded as part of your project
 data = {

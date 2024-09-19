@@ -31,7 +31,7 @@ the ``FileManager`` class and the file type is inferred from the file extension 
 the ``save`` and ``load`` methods.
 
 ```python
-from swapstore import FileManger
+from swapstore import FileManager
 
 # some data to be saved and loaded as part of your project
 data = {
