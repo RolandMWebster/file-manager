@@ -3,7 +3,7 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "swap_store"
+name = "swapstore"
 version = "0.0.1"
 authors = [{name="Roland Webster", email="rolandmwebster@gmail.com"}]
 dependencies = [
