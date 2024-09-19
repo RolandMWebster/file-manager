@@ -3,10 +3,10 @@ from __future__ import annotations
 import pathlib
 from typing import TYPE_CHECKING, Any, Optional, Union
 
-from file_manager.file_handlers import get_handler_type
+from swapstore.file_handlers import get_handler_type
 
 if TYPE_CHECKING:
-    from file_manager.file_handlers import BaseHandler
+    from swapstore.file_handlers import BaseHandler
 
 
 class FileManager:

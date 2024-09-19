@@ -3,7 +3,7 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "file_manager"
+name = "swapstore"
 version = "0.0.1"
 authors = [{name="Roland Webster", email="rolandmwebster@gmail.com"}]
 dependencies = [
@@ -28,9 +28,9 @@ azure = [
 ]
 
 full = [
-    "file_manager[s3]",
-    "file_manager[google]",
-    "file_manager[azure]",
+    "swapstore[s3]",
+    "swapstore[google]",
+    "swapstore[azure]",
 ]
 
 lint = [
@@ -46,10 +46,10 @@ misc = [
     "nox==2024.4.15",
 ]
 dev = [
-    "file_manager[full]",
-    "file_manager[misc]",
-    "file_manager[test]",
-    "file_manager[lint]",
+    "swapstore[full]",
+    "swapstore[misc]",
+    "swapstore[test]",
+    "swapstore[lint]",
 ]
 
 [tool.ruff.lint]

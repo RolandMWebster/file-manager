@@ -1,26 +1,26 @@
 # Quickstart
 
-This document provides a quick start guide for using the `file_manager` package.
+This document provides a quick start guide for using the `swap-store` package.
 
 ## Installation
 
-The ``file_manager`` package can be installed from GitHub via pip:
+The ``swap-store`` package can be installed from GitHub via pip:
 ```bash
-pip install "file_manager[full] @ git+https://github.com/RolandMWebster/file-manager.git"
+pip install "swapstore[full] @ git+https://github.com/RolandMWebster/swap-store.git"
 ```
 
-Note: The `[full]` option installs all dependencies for all supported cloud object
+Note: The ``[full]`` option installs all dependencies for all supported cloud object
 storage locations. Alternatively, you can install only the dependencies for your storage
 location of choice, e.g.:
 ```bash
 # install dependencies for Amazon S3 only
-pip install "file_manager[s3] @ git+https://github.com/RolandMWebster/file-manager.git"
+pip install "swapstore[s3] @ git+https://github.com/RolandMWebster/swap-store.git"
 ```
 
-If you are only using the local storage functionality of ``file_manager``, then you can
+If you are only using the local storage functionality of ``swap-store``, then you can
 ignore any cloud object storage dependencies:
 ```bash
-pip install git+https://github.com/RolandMWebster/file-manager.git
+pip install git+https://github.com/RolandMWebster/swap-store.git
 ```
 
 ## Basic Usage
@@ -31,7 +31,7 @@ the ``FileManager`` class and the file type is inferred from the file extension 
 the ``save`` and ``load`` methods.
 
 ```python
-from file_manager import FileManger
+from swapstore import FileManager
 
 # some data to be saved and loaded as part of your project
 data = {
@@ -78,13 +78,13 @@ file_manager.save(data, "data.json", directory="data/subdir")  # saves to data/s
 
 ## Typical Workflow
 
-The ``file_manager`` package implements a variety of shared storage location services,
+The ``swapstore`` package implements a variety of shared storage location services,
 but the typical workflow will only involve a single shared storage location (whichever
 you or your team has chosen as part of your infrastructure) in conjunction with local storage. Files can be stored locally (or not at all) during development and testing, and then moved to shared storage for production use. See the section below on configuration driven usage for more details on what this looks like in practice.
 
 ## Configuration Driven Usage
 
-One of the more powerful ways to make use of the ``file_manager`` package is to use
+One of the more powerful ways to make use of the ``swapstore` package is to use
 configuration driven file handling, which makes it easy to manage storage location
 details for different environments (e.g. development, production) and to
 switch between them with minimal effort. It might look something like the below, where we

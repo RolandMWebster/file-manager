@@ -1,7 +1,6 @@
-# File Manager
+# Swap Store
 
-*A unified interface for saving and loading files across various storage types.*
-
+*A unified Python interface for saving and loading files across various storage types.*
 
 ## Overview
 
@@ -15,7 +14,6 @@ interacting with different storage types. By simplifying this process, it allows
 developers to easily swap storage backends without modifying their codebase, making it
 ideal for environments that require flexible storage management, such as development,
 testing, and production.
-
 
 ## Caution
 
@@ -44,30 +42,29 @@ storage API could be simpler and more straightforward.
 
 ## Installation
 
-The ``file_manager`` package can be installed from GitHub via pip:
+The ``swap-store`` package can be installed from GitHub via pip:
 ```bash
-pip install "file_manager[full] @ git+https://github.com/RolandMWebster/file-manager.git"
+pip install "swapstore[full] @ git+https://github.com/RolandMWebster/swap-store.git"
 ```
 
-Note: The `[full]` option installs all dependencies for all supported cloud object
+Note: The ``[full]`` option installs all dependencies for all supported cloud object
 storage locations. Alternatively, you can install only the dependencies for your storage
 location of choice, e.g.:
 ```bash
 # install dependencies for Amazon S3 only
-pip install "file_manager[s3] @ git+https://github.com/RolandMWebster/file-manager.git"
+pip install "swapstore[s3] @ git+https://github.com/RolandMWebster/swap-store.git"
 ```
 
-If you are only using the local storage functionality of ``file_manager``, then you can
+If you are only using the local storage functionality of ``swap-store``, then you can
 ignore any cloud object storage dependencies:
 ```bash
-pip install git+https://github.com/RolandMWebster/file-manager.git
+pip install git+https://github.com/RolandMWebster/swap-store.git
 ```
-
 
 ## Example Usage
 
 ```python
-from file_manager import FileManger
+from swapstore import FileManager
 
 # some data to be saved and loaded as part of your project
 data = {
