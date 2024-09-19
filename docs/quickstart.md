@@ -20,7 +20,7 @@ pip install "file_manager[s3] @ git+https://github.com/RolandMWebster/file-manag
 If you are only using the local storage functionality of ``file_manager``, then you can
 ignore any cloud object storage dependencies:
 ```bash
-pip install git+https://github.com/RolandMWebster/file-manager.git"
+pip install git+https://github.com/RolandMWebster/file-manager.git
 ```
 
 ## Basic Usage
