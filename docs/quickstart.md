@@ -1,6 +1,6 @@
 # Quickstart
 
-This document provides a quick start guide for using the `swap-store` package.
+Guide for getting started with the ``swap-store`` package.
 
 ## Installation
 
